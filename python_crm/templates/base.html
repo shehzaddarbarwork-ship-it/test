@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Python CRM{% endblock %}</title>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+    {% block extra_css %}{% endblock %}
+    
+    <!-- jQuery -->
+    <script src="{{ url_for('static', filename='js/jquery-3.6.4.js') }}"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <h1 class="logo">Python CRM</h1>
+            <nav class="nav-menu">
+                <a href="{{ url_for('main.home') }}" class="nav-link">Home</a>
+                <a href="{{ url_for('main.send_mail') }}" class="nav-link">Send Mail</a>
+                <a href="{{ url_for('main.learn_python') }}" class="nav-link">Learn Python</a>
+                {% if session.user_id %}
+                    <a href="{{ url_for('main.logout') }}" class="nav-link">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('main.login') }}" class="nav-link">Login</a>
+                    <a href="{{ url_for('main.signup') }}" class="nav-link">Sign Up</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-message flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Python CRM. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript Files -->
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

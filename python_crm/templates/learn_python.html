@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}Learn Python - Python CRM{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/learn-php.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="learn-container">
+    <h2>Learn Python</h2>
+    
+    <div class="learning-content">
+        <section class="intro-section">
+            <h3>Welcome to Python Learning!</h3>
+            <p>Python is a powerful, versatile programming language that's perfect for web development, data science, automation, and much more.</p>
+        </section>
+        
+        <section class="basics-section">
+            <h3>Python Basics</h3>
+            <div class="code-example">
+                <h4>Variables and Data Types</h4>
+                <pre><code># Variables in Python
+name = "Python CRM"
+version = 3.13
+is_awesome = True
+
+# Lists
+languages = ["Python", "JavaScript", "HTML", "CSS"]
+
+# Dictionaries
+user = {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "role": "developer"
+}</code></pre>
+            </div>
+            
+            <div class="code-example">
+                <h4>Functions</h4>
+                <pre><code># Function definition
+def greet_user(name):
+    return f"Hello, {name}! Welcome to Python CRM."
+
+# Function call
+message = greet_user("Alice")
+print(message)</code></pre>
+            </div>
+            
+            <div class="code-example">
+                <h4>Classes and Objects</h4>
+                <pre><code># Class definition
+class Company:
+    def __init__(self, name, sector):
+        self.name = name
+        self.sector = sector
+    
+    def get_info(self):
+        return f"{self.name} operates in {self.sector}"
+
+# Creating an object
+company = Company("TechCorp", "Technology")
+print(company.get_info())</code></pre>
+            </div>
+        </section>
+        
+        <section class="web-development-section">
+            <h3>Web Development with Flask</h3>
+            <div class="code-example">
+                <h4>Simple Flask Application</h4>
+                <pre><code>from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Welcome to Python CRM!"
+
+@app.route('/api/users')
+def get_users():
+    users = [
+        {"id": 1, "name": "Alice"},
+        {"id": 2, "name": "Bob"}
+    ]
+    return jsonify(users)
+
+if __name__ == '__main__':
+    app.run(debug=True)</code></pre>
+            </div>
+        </section>
+        
+        <section class="database-section">
+            <h3>Database Operations with SQLAlchemy</h3>
+            <div class="code-example">
+                <h4>Model Definition</h4>
+                <pre><code>from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email
+        }</code></pre>
+            </div>
+        </section>
+        
+        <section class="resources-section">
+            <h3>Learning Resources</h3>
+            <ul class="resources-list">
+                <li><a href="https://python.org" target="_blank">Official Python Website</a></li>
+                <li><a href="https://flask.palletsprojects.com" target="_blank">Flask Documentation</a></li>
+                <li><a href="https://docs.sqlalchemy.org" target="_blank">SQLAlchemy Documentation</a></li>
+                <li><a href="https://realpython.com" target="_blank">Real Python Tutorials</a></li>
+                <li><a href="https://pythontutor.com" target="_blank">Python Tutor (Visualize Code)</a></li>
+            </ul>
+        </section>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/learn-php.js') }}"></script>
+{% endblock %}

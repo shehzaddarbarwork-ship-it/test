@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Send Mail - Python CRM{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/send-mail.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="mail-container">
+    <h2>Send Email</h2>
+    
+    {% if session.user_id %}
+    <div class="mail-form-container">
+        <form id="mail-form" class="mail-form">
+            <div class="form-group">
+                <label for="recipient_email">To:</label>
+                <input type="email" id="recipient_email" name="recipient_email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="subject" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="body">Message:</label>
+                <textarea id="body" name="body" rows="10" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="company_id">Associated Company (Optional):</label>
+                <select id="company_id" name="company_id">
+                    <option value="">Select a company...</option>
+                    <!-- Companies will be loaded via JavaScript -->
+                </select>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" name="action" value="send" class="btn btn-primary">Send Email</button>
+                <button type="submit" name="action" value="template" class="btn btn-secondary">Save as Template</button>
+            </div>
+        </form>
+    </div>
+    
+    <div class="templates-section">
+        <h3>Email Templates</h3>
+        <div id="templates-list" class="templates-list">
+            <!-- Templates will be loaded via JavaScript -->
+        </div>
+    </div>
+    
+    <div class="sent-emails-section">
+        <h3>Sent Emails</h3>
+        <div id="sent-emails-list" class="sent-emails-list">
+            <!-- Sent emails will be loaded via JavaScript -->
+        </div>
+    </div>
+    {% else %}
+    <div class="auth-required">
+        <p>Please <a href="{{ url_for('main.login') }}">login</a> to send emails.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Store user ID for JavaScript use
+const USER_ID = {{ session.user_id if session.user_id else 'null' }};
+</script>
+<script src="{{ url_for('static', filename='js/send-mail.js') }}"></script>
+{% endblock %}
